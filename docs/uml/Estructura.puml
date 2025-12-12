@@ -1,0 +1,84 @@
+@startuml
+skinparam packageStyle rectangle
+
+package "controller" {
+  class ProyectoController
+  class TareaController
+  class UsuarioController
+  class DashboardController
+}
+
+package "service" {
+  interface ProyectoService
+  interface TareaService
+  interface UsuarioService
+  interface DashboardService
+}
+
+package "service.impl" {
+  class ProyectoServiceImpl
+  class TareaServiceImpl
+  class UsuarioServiceImpl
+  class DashboardServiceImpl
+}
+
+package "repository" {
+  interface ProyectoRepository
+  interface TareaRepository
+  interface UsuarioRepository
+}
+
+package "entity" {
+  class Proyecto
+  class Tarea
+  class Usuario
+
+  enum EstadoProyecto
+  enum EstadoTarea
+  enum Prioridad
+}
+
+package "dto" {
+  class ProyectoDTO
+  class TareaDTO
+  class UsuarioDTO
+  class TareasPorEstadoDTO
+}
+
+package "config" {
+  class OpenApiConfig
+  class CorsConfig
+}
+
+package "exception" {
+  class GlobalExceptionHandler
+}
+
+ProyectoController --> ProyectoService
+TareaController --> TareaService
+UsuarioController --> UsuarioService
+DashboardController --> DashboardService
+
+ProyectoService <|.. ProyectoServiceImpl
+TareaService <|.. TareaServiceImpl
+UsuarioService <|.. UsuarioServiceImpl
+DashboardService <|.. DashboardServiceImpl
+
+ProyectoServiceImpl --> ProyectoRepository
+TareaServiceImpl --> TareaRepository
+UsuarioServiceImpl --> UsuarioRepository
+DashboardServiceImpl --> TareaRepository
+
+ProyectoRepository --> Proyecto
+TareaRepository --> Tarea
+UsuarioRepository --> Usuario
+
+ProyectoController ..> ProyectoDTO
+TareaController ..> TareaDTO
+UsuarioController ..> UsuarioDTO
+DashboardController ..> TareasPorEstadoDTO
+
+Tarea --> EstadoTarea
+Tarea --> Prioridad
+Proyecto --> EstadoProyecto
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+actor Usuario
+Usuario -> TareaController : POST /api/tareas
+TareaController -> TareaService : crear(dto)
+TareaService -> ProyectoRepository : findById(proyectoId)
+TareaService -> UsuarioRepository : findById(usuarioId)
+TareaService -> TareaRepository : save(tarea)
+TareaRepository --> TareaService : tarea
+TareaService --> TareaController : TareaDTO
+TareaController --> Usuario : 
+@enduml

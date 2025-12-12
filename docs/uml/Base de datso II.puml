@@ -1,0 +1,31 @@
+@startuml
+entity proyectos {
+  id : BIGINT <<PK>>
+  nombre : VARCHAR(100)
+  descripcion : VARCHAR(500)
+  fecha_inicio : DATE
+  fecha_fin : DATE
+  estado : ENUM
+}
+
+entity usuarios {
+  id : BIGINT <<PK>>
+  nombre : VARCHAR(100)
+  email : VARCHAR(150) <<UNIQUE>>
+}
+
+entity tareas {
+  id : BIGINT <<PK>>
+  titulo : VARCHAR(150)
+  descripcion : VARCHAR(1000)
+  estado : ENUM
+  prioridad : ENUM
+  fecha_creacion : DATE
+  fecha_vencimiento : DATE
+  proyecto_id : BIGINT <<FK>>
+  usuario_id : BIGINT <<FK>>
+}
+
+proyectos ||--o{ tareas
+usuarios ||--o{ tareas
+@enduml
